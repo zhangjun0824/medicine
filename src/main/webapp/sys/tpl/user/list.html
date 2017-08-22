@@ -1,0 +1,60 @@
+<div class="wrapper-sm"></div>
+<div class="col-sm-12" ng-controller="UserListCtrl">
+	<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+	<div class="panel panel-default lter b-b wrapper-md ">
+		<h3 class="m-n font-thin h3">用户列表</h3>
+	</div>
+	<div class="panel panel-default">
+		<div class="row wrapper">
+			<div class="col-sm-3">
+				<div class="input-group">
+					<input type="text" class="input-sm form-control"
+						placeholder="Search" ng-model="searchVal"
+						ng-keyup="search($event)"> <span class="input-group-btn">
+						<button class="btn btn-sm btn-default" type="button" ng-click="queryList()">Go!</button>
+					</span>
+				</div>
+			</div>
+			<div class="col-sm-7"></div>
+			<div class="col-sm-2 m-b-xs">
+				<ul class="nav">
+					<li><button class="btn btn-default btn-addon" ng-click="addUser()">
+							<i class="fa fa-plus"></i>添加用户
+						</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th class="col-3">用户名</th>
+						<th class="col-3">账号</th>
+						<th class="col-3">身份证</th>
+						<th class="col-3">电话</th>
+						<th class="col-3">Email</th>
+						<th class="col-3">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="user in userList">
+						<td title="{{user.name}}">{{user.name}}</td>
+						<td title="{{user.username}}">{{user.username}}</td>
+						<td title="{{user.idCard}}">{{user.idCard}}</td>
+						<td title="{{user.phone}}">{{user.phone}}</td>
+						<td title="{{user.email}}">{{user.email}}</td>
+						<td>
+							<button class="btn btn-rounded btn-sm btn-icon btn-default" title="编辑" ng-click="editUser({{user}})"><i class="glyphicon glyphicon-edit"></i></button>
+							<button class="btn btn-rounded btn-sm btn-icon btn-default" title="删除" ng-click="delUser({{user}})"><i class="glyphicon glyphicon-trash"></i></button>
+							<button class="btn btn-rounded btn-sm btn-icon btn-default" title="角色" ng-click="roleUser({{user}})"><i class="glyphicon glyphicon-link"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="panel-footer">
+			<tm-pagination conf="paginationConf"></tm-pagination>
+		</div>
+	</div>
+</div>

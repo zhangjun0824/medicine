@@ -1,0 +1,41 @@
+<div class="wrapper-sm"></div>
+<div class="col-sm-12" ng-controller="RolePrivilegeCtrl">
+	<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+	<div class="panel panel-default lter b-b wrapper-md ">
+		<h3 class="m-n font-thin h3">角色资源绑定</h3>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="col col-sm-4"></div>
+			<div class="col col-sm-4">
+				<div class="row wrapper"></div>
+				<div class="wrapper-md">
+					<div class="dk r r-2x">
+						<div class="panel-default font-bold">
+							<ul class="nav">
+								<li>
+									<h4 class="m-n font-thin h4">{{role.name}}</h4>
+								</li>
+								<li class="text-center">
+									<button class="btn btn-sm btn-default" ui-toggle-class="show"
+										target="#m" ng-click="expandOrCollapse(true)">
+										<i class="fa fa-plus text"></i> <span class="text">展开所有</span>
+										<i class="fa fa-minus text-active"></i> <span
+											class="text-active">收起所有</span>
+									</button>
+									<button class="btn btn-sm btn-info" ng-click="submit()"><i class="glyphicon glyphicon-plus" title="保存"></i>
+										<span class="text">保存</span></button>
+								</li>
+							</ul>
+						</div>
+						<span ng-if="doing_async">...loading...</span>
+						<abn-tree tree-data="data" tree-control="tree"
+									expand-level="2" hasChecked=true>
+						</abn-tree>
+					</div>
+				</div>
+			</div>
+			<div class="col col-sm-4"></div>
+		</div>
+	</div>
+</div>

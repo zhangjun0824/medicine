@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicine.framework.dao.dict.DictMapper">
+
+    <sql id="dict_columns">
+        id,name,code, memo,type,sort,unit,val,
+        parent_code as parentCode,
+        create_User_Id as createUserId,
+        create_Date as createDate,
+        edit_User_id as editUserId,
+        edit_Date as editDate
+    </sql>
+	
+	<insert id="save" parameterType="com.medicine.framework.entity.dict.Dict">
+		 insert into yj_dict 
+		 (id ,code,name,memo,sort,type,unit,val,parent_code,delete_flag,create_User_Id,create_Date,edit_User_id,edit_Date)
+        values 
+        (#{id} ,#{code},#{name},#{memo,jdbcType=VARCHAR},#{sort,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},
+        #{unit,jdbcType=VARCHAR},#{val,jdbcType=VARCHAR},
+        #{parentCode,jdbcType=VARCHAR},#{deleteFlag},#{createUserId},#{createDate},
+        #{editUserId},#{editDate})
+	</insert>
+	
+    <update id="update" parameterType="com.medicine.framework.entity.dict.Dict">
+        update yj_dict
+        <set>
+        	<if test="name !=null and name !=''">name=#{name},</if>
+        	<if test="code !=null and code !=''">code=#{code},</if>
+        	<if test="type !=null and type !=''">type=#{type},</if>
+        	<if test="unit !=null and unit !=''">unit=#{unit},</if>
+        	<if test="val !=null and val !=''">val=#{val},</if>
+        	<if test="sort !=null and sort !=''">sort=#{sort}</if>
+        </set> 
+		where id=#{id}
+    </update>
+    
+    <delete id="delete" parameterType="com.medicine.framework.entity.dict.Dict">
+    	delete from yj_dict where id in (select id from yj_dict start with code=#{code} and id=#{id} connect by prior code = parent_code)
+    </delete>
+    
+	<select id="queryList" parameterType="String" resultType="com.medicine.framework.entity.dict.Dict">
+		select
+        <include refid="dict_columns"/>
+        FROM yj_dict
+        WHERE delete_flag = 0
+        <if test="searchVal !=null and searchVal != ''">
+        	and (name like concat(concat('%',#{searchVal}),'%') 
+       		or code like concat(concat('%',#{searchVal}),'%')
+       		or memo like concat(concat('%',#{searchVal}),'%'))
+        </if>
+	</select>
+	
+	<select id="queryDict" parameterType="String" resultType="com.medicine.framework.entity.dict.Dict">
+		select
+        <include refid="dict_columns"/>
+        FROM yj_dict
+        WHERE delete_flag = 0 
+        <if test="code != null and code != ''">
+        	and code=#{code}
+        </if>
+	</select>
+	
+	<select id="queryTreeByCode" parameterType="String" resultType="com.medicine.framework.entity.dict.Dict">
+		select
+        <include refid="dict_columns"/>
+        FROM yj_dict 
+        start with parent_code=#{code}
+        connect by prior code=parent_code
+	</select>
+	
+	<select id="queryListByParentCode" parameterType="String" resultType="com.medicine.framework.entity.dict.Dict">
+		select
+        <include refid="dict_columns"/>
+        FROM yj_dict  
+        where parent_code=#{code}
+	</select>
+	
+</mapper>
