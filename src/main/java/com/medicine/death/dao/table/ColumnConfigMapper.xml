@@ -13,6 +13,16 @@
     	where id=#{id}
     </select>
     
+    <select id="queryColumnById" parameterType="String" resultType="com.medicine.death.entity.table.ColumnConfig">
+    	select 
+	    	id,name,memo,
+	    	column_length as columnLength,
+	    	column_type as columnType,
+	    	table_id as tableId
+    	from yj_column_config 
+    	where id=#{id}
+    </select>
+    
     <select id="queryList" parameterType="com.medicine.death.entity.table.ColumnConfig" resultType="com.medicine.death.entity.table.ColumnConfig">
     	select 
 	    	id,name,memo,

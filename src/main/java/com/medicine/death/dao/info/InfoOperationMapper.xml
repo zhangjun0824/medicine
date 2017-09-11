@@ -7,4 +7,16 @@
     	${sqlVo.sql}
     </select>
     
+    <update id="save">
+    	${sql}
+    </update>
+    
+    <update id="update">
+    	${sql}
+    </update>
+    
+    <update id="delete">
+    	${sql}
+    </update>
+    
 </mapper>

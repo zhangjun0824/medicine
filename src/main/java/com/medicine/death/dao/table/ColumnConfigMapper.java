@@ -24,5 +24,7 @@ public interface ColumnConfigMapper {
 
 	List<ColumnConfig> queryListByIds(String[] ids);
 
+	ColumnConfig queryColumnById(String id);
+
 
 }

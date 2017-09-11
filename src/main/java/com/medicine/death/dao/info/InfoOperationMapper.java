@@ -19,13 +19,12 @@ public interface InfoOperationMapper {
 
 	List<TableConfig> queryList(TableConfig table);
 
-	void save(TableConfig table);
+	void save(SqlVo sqlVo);
 
-	void update(TableConfig table);
+	void update(SqlVo sqlVo);
 
-	void delete(TableConfig table);
+	void delete(SqlVo sqlVo);
 
 	List<Map<String, Object>> executeListPage(@Param("page") PageInfo pageInfo,@Param("sqlVo") SqlVo sqlVo);
-
 
 }

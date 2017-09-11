@@ -58,12 +58,20 @@ app.controller('InfoMainCtrl', ['$scope', '$state', '$http', '$timeout', 'toaste
 		});
 	}
 	
-	$scope.columnChange=function(){
-		
+	$scope.queryAll=function(){
+		var arr=[];
+		$("#columnChosen").html("<option value=''></option>");
+		$("#columnChosen").trigger("chosen:updated");
+		angular.forEach($scope.columnList, function(data){
+			var html="<option value='"+data.id+"' selected>"+data.memo+"</option>";
+			$("#columnChosen").append(html);
+			arr.push(data.id)
+		});
+		$("#columnChosen").trigger("chosen:updated");
+		$scope.columnIds=arr;
 	}
 	
 	$scope.queryInfo=function(){
-		
 		if($scope.columnIds){
 			$.ajax({
 				url : webRoot + '/column/queryListByIds.json',
@@ -117,12 +125,54 @@ app.controller('InfoMainCtrl', ['$scope', '$state', '$http', '$timeout', 'toaste
 			$scope.queryInfo();
 		}
 	}
+	
+	$scope.addInfo = function() {
+		if($scope.table){
+			var arr=[];
+			angular.forEach($scope.columnList, function(data){
+				var obj={
+					id:data.id,
+					name:data.name,
+					memo:data.memo,
+					value:""
+				}
+				arr.push(obj);
+			});
+			
+			$scope.table.columnList=arr;
+			
+			$state.go("app.infoAdd", {
+				table : angular.toJson($scope.table)
+			}, {
+				reload : true
+			});
+		}else{
+			toaster.pop("warning","提示","请选择要新增信息表.");
+		}
+	}
+	
 	$scope.editInfo = function(infoArr) {
 		$scope.table.infoArr=infoArr;
 		$state.go("app.infoEdit", {
 			table : angular.toJson($scope.table)
 		}, {
 			reload : true
+		});
+	}
+	
+	$scope.delInfo = function(infoArr) {
+		
+		$scope.table.infoId=infoArr[0].id;
+		
+		$.ajax({
+			url : webRoot + '/info/delete.json',
+			type : 'post',
+			data : {tableStr:JSON.stringify($scope.table)},
+			async : false,
+			success:function(data){
+				toaster.pop("sueecss","提示","删除成功.");
+				$scope.queryInfo();
+			}
 		});
 	}
 }]);

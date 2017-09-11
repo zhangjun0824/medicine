@@ -179,6 +179,16 @@ angular.module('app')
             		  }]
             	  }
               })
+              .state('app.infoAdd', {
+            	  url: '/info/add:table',
+            	  templateUrl: 'tpl/info/add.html',
+            	  resolve: {
+            		  deps: ['$ocLazyLoad',
+            		         function( $ocLazyLoad ){
+            			  return $ocLazyLoad.load('js/source/info/add.js');
+            		  }]
+            	  }
+              })
               .state('app.infoEdit', {
             	  url: '/info/edit:table',
             	  templateUrl: 'tpl/info/edit.html',

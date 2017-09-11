@@ -36,6 +36,7 @@ public class InfoOperationController extends BaseController {
     	result.addObject("tables", tables);
     	return  result;
     }
+    
     @RequestMapping("save")
     public ModelAndView save(HttpServletRequest request, HttpServletResponse response,String tableStr) throws Exception{
     	ModelAndView result = new ModelAndView();
@@ -44,6 +45,25 @@ public class InfoOperationController extends BaseController {
     	result.addObject("state", state);
     	return  result;
     }
+    
+    @RequestMapping("edit")
+    public ModelAndView edit(HttpServletRequest request, HttpServletResponse response,String tableStr) throws Exception{
+    	ModelAndView result = new ModelAndView();
+    	State state=new State("1");
+    	service.edit(tableStr);
+    	result.addObject("state", state);
+    	return  result;
+    }
+    
+    @RequestMapping("delete")
+    public ModelAndView delete(HttpServletRequest request, HttpServletResponse response,String tableStr) throws Exception{
+    	ModelAndView result = new ModelAndView();
+    	State state=new State("1");
+    	service.delete(tableStr);
+    	result.addObject("state", state);
+    	return  result;
+    }
+    
     @RequestMapping("infoList")
     public ModelAndView infoList(HttpServletRequest request, HttpServletResponse response,String table,String searchVal) throws Exception{
     	ModelAndView result = new ModelAndView();

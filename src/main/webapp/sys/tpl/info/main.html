@@ -14,12 +14,14 @@
 						<option value=""></option>
 						<option ng-repeat="table in tableList" value="{{table.id}}">{{table.memo}}</option>
 					</select>
+					<button class="btn btn-sm btn-default" type="button" ng-click="addInfo()">新增</button>
 				</div>
 				<div class="col-sm-3" >
 					<span>信息表字段:</span>
-					<select ui-jq="chosen" class="w-md" id="columnChosen" ng-model="columnIds" ng-change="columnChange()" multiple>
+					<select ui-jq="chosen" class="w-md" id="columnChosen" ng-model="columnIds" multiple>
 						<option value=""></option>
 					</select>
+					<button class="btn btn-sm btn-default" type="button" ng-click="queryAll()">全选</button>
 				</div>
 				<div class="col-sm-3">
 					<div class="input-group">
@@ -43,7 +45,7 @@
 							<td title="{{info.name}}" ng-repeat="info in infoArr">{{info.name}}</td>
 							<td>
 								<button class="btn btn-rounded btn-sm btn-icon btn-default" title="编辑" ng-click="editInfo({{infoArr}})"><i class="glyphicon glyphicon-edit"></i></button>
-								<button class="btn btn-rounded btn-sm btn-icon btn-default" title="删除" ng-click="delUser({{user}})"><i class="glyphicon glyphicon-trash"></i></button>
+								<button class="btn btn-rounded btn-sm btn-icon btn-default" title="删除" ng-click="delInfo({{infoArr}})"><i class="glyphicon glyphicon-trash"></i></button>
 							</td>
 						</tr>
 					</tbody>

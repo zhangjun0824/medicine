@@ -7,9 +7,9 @@
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<form name="form" class="bs-example form-horizontal form-validation">
-				<div class="form-group" ng-repeat="info in infoList">
+				<div class="form-group" ng-repeat="info in table.infoList">
 					<div class="col-sm-10 col-lg-offset-2" >
-						<label class="col-lg-2 control-label">{{info.name}}</label>
+						<label class="col-lg-2 control-label">{{info.memo}}</label>
 						<div class="col-lg-6">
 							<input type="text" name="value" ng-model="info.value" class="form-control" placeholder="" required>
 						</div>
