@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicine.framework.dao.log.LoginLogMapper">
+
+    <sql id="columnSql">
+        id ,
+        log_date as logDate ,
+        user_id as userId,
+        user_name as userName,
+        type,ip,equipment
+    </sql>
+
+
+    <insert id="insertLog" parameterType="LoginLog">
+        insert into yj_SYS_LOGIN_LOG (id,log_date,user_id,user_name,type,ip,equipment)
+        values (#{id} ,#{logDate} ,#{userId},#{userName},#{type},#{ip},#{equipment,jdbcType=VARCHAR})
+    </insert>
+
+    <!-- 分页查询日志-->
+    <select id="getLogListPage" parameterType="LoginLog" resultType="LoginLog">
+        select
+        <include refid="columnSql"/>
+        FROM yj_SYS_LOGIN_LOG WHERE 1=1
+
+        <if test="loginLog.userName!=null and loginLog.userName!=''">
+            and user_Name like concat(concat('%', #{loginLog.userName}),'%')
+        </if>
+
+        <if test="loginLog.startDate !=null and loginLog.startDate != ''">
+            <![CDATA[
+    	  	and log_date >= to_date(#{loginLog.startDate},'yyyy-mm-dd HH24:mi:ss')
+    	  	]]>
+        </if>
+
+        <if test="loginLog.endDate !=null and loginLog.endDate != ''">
+            <![CDATA[
+            and log_date <= to_date(#{loginLog.endDate},'yyyy-mm-dd HH24:mi:ss')
+           ]]>
+        </if>
+        order by log_date desc
+    </select>
+
+</mapper>

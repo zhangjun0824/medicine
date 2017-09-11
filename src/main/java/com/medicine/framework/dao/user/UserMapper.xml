@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.medicine.framework.dao.user.UserMapper">
+
+    <sql id="user_columns">
+        id,
+        code,
+        user_name as username,
+        password,
+        name,
+        id_card as idCard,
+        phone,email,create_User_Id as createUserId,create_Date as createDate,edit_User_id as editUserId,
+        edit_Date as editDate,delete_flag as deleteFlag,memo, attachment_id as attachmentId
+    </sql>
+	
+	<insert id="save" parameterType="com.medicine.framework.entity.user.User">
+		 insert into yj_user 
+		 (id ,code,id_card,user_Name,password,name,phone,email,create_User_Id,create_Date,edit_User_id,edit_Date,delete_flag,memo)
+        values 
+        (#{id} ,#{code,jdbcType=VARCHAR},#{idCard},#{username},#{password},#{name},#{phone},#{email},#{createUserId,jdbcType=VARCHAR},
+        #{createDate},#{editUserId,jdbcType=VARCHAR},#{editDate},#{deleteFlag,jdbcType=INTEGER},#{memo,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="queryListPage" parameterType="String" resultType="com.medicine.framework.entity.user.User">
+		select
+        <include refid="user_columns"/>
+        FROM yj_user 
+        WHERE delete_flag = 0
+        <if test="searchVal !=null and searchVal != ''">
+        	and (name like concat(concat('%',#{searchVal}),'%') 
+       		or id_card like concat(concat('%',#{searchVal}),'%')
+       		or user_name like concat(concat('%',#{searchVal}),'%'))
+        </if>
+	</select>
+	
+	<select id="getUserById" parameterType="String" resultType="com.medicine.framework.entity.user.User">
+		select
+        	<include refid="user_columns"/>
+        FROM yj_user 
+        WHERE delete_flag = 0 and id=#{id}
+	</select>
+	
+    <!-- 根据用户名查询用户-->
+    <select id="getUserByUserName" parameterType="java.lang.String" resultType="com.medicine.framework.entity.user.User">
+        select
+        <include refid="user_columns"/>
+        FROM yj_user WHERE delete_flag = 0 and Lower(user_Name) = Lower(#{userName})
+    </select>
+    
+    
+    <select id="getPWD" parameterType="java.lang.String" resultType="String">
+        select password FROM yj_user WHERE delete_flag = 0 and user_Name =#{userName}
+    </select>
+
+    <select id="getAllAuthorityName" resultType="String">
+        select id from yj_role
+    </select>
+
+    <select id="getAuthorityName" resultType="String" >
+        SELECT distinct role_id from yj_user_role where user_id = #{userId}
+    </select>
+
+    <select id="getResource" parameterType="java.lang.String" resultType="String">
+        select spr.resources_url as resourcesUrl from ( select * from yj_role_privilege where role_id=#{roleId}) rp
+        inner join (select * from yj_privilege where delete_flag=0 ) sp on rp.privilege_id=sp.id
+        inner join yj_privilege_Resources spr on spr.privilege_id=sp.id
+    </select>
+
+    <select id="getNoAuthResource" resultType="string">
+        select spr.resources_url as resourcesUrl from (select * from yj_privilege where delete_flag=0 and is_privilege=0
+        ) sp
+        inner join yj_privilege_Resources spr on spr.privilege_id=sp.id
+    </select>
+
+
+    <update id="deleteUser" parameterType="java.lang.String">
+        update yj_user set delete_flag = 1 where id=#{id}
+    </update>
+
+    <delete id="deleteOfBatchUser" parameterType="list">
+        update yj_user set delete_flag = 1 where id in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateAccount" parameterType="com.medicine.framework.entity.user.User">
+    	update yj_user set
+        <if test="name != null and name != ''">
+            name=#{name},
+        </if>
+        <if test="phone != null and phone != ''">
+            phone=#{phone},
+        </if>
+        <if test="email != null and email != ''">
+            email=#{email},
+        </if>
+        <if test="attachmentId != null and attachmentId > 0">
+            attachment_id=#{attachmentId},
+        </if>
+		edit_User_id=#{editUserId},
+		edit_Date=#{editDate}
+        where id=#{id}
+    </update>
+
+    <update id="updatePwd" parameterType="com.medicine.framework.entity.user.User">
+        update yj_user set password=#{password} where id=#{id}
+    </update>
+    
+    <update id="resetPwd" parameterType="com.medicine.framework.entity.user.User">
+        update yj_user set password=#{password} where id=#{id}
+    </update>
+    
+</mapper>
