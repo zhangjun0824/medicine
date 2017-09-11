@@ -19,6 +19,7 @@ public class InfoOperation extends BaseEntity {
 	private TableConfig table;
 
 	private List<Map<String,String>> infoList;
+	
 
 	public TableConfig getTable() {
 		return table;

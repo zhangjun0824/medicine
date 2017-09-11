@@ -29,6 +29,7 @@ public class ColumnConfigController extends BaseController {
     	service.save(column);
     	result.addObject("state", state);
     	return  result;
+    	
     }
     @RequestMapping("update")
     public ModelAndView update(HttpServletRequest request, HttpServletResponse response,ColumnConfig column){
