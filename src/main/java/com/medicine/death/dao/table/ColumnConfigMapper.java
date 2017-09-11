@@ -5,7 +5,7 @@ import java.util.List;
 import com.medicine.death.entity.table.ColumnConfig;
 
 /**
- * 用户
+ * 列
  *
  */
 public interface ColumnConfigMapper {
@@ -21,6 +21,8 @@ public interface ColumnConfigMapper {
 	void delete(ColumnConfig column);
 
 	void deleteByTableId(String id);
+
+	List<ColumnConfig> queryListByIds(String[] ids);
 
 
 }

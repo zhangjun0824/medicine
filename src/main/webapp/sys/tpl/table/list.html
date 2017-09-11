@@ -1,7 +1,6 @@
 <div class="wrapper-sm"></div>
 <div class="col-sm-12" ng-controller="TableConfigCtrl">
-	<toaster-container
-		toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+	<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
 	<div class="panel panel-default lter b-b wrapper-md ">
 		<h3 class="m-n font-thin h3">表格配置</h3>
 	</div>
@@ -87,7 +86,7 @@
 									<tbody>
 										<tr ng-repeat="column in columnList track by $index">
 											<td><input type="text" name="name" ng-model="column.name" class="form-control"
-												placeholder="字段名称" ng-pattern="/^[a-zA-Z_]{4,15}$/" required></td>
+												placeholder="字段名称" ng-pattern="/^[a-zA-Z_]{2,15}$/" required></td>
 											<td><input type="text" name="memo" ng-model="column.memo" class="form-control"
 												placeholder="字段说明" required></td>
 											<td>

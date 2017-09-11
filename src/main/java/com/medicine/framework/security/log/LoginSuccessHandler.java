@@ -63,7 +63,7 @@ public class LoginSuccessHandler
         String targetUrl = "";
         try {
 
-            this.saveLoginInfo(request, authentication);
+            saveLoginInfo(request, authentication);
             if (!StringUtils.isEmpty(jtype) && (jtype.equals("mobile") || jtype.equals("client"))) {
                 targetUrl = mobileTargetUrl;
             } else {
@@ -86,7 +86,6 @@ public class LoginSuccessHandler
         }
     }
 
-    //@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor ={Exception.class})
     public void saveLoginInfo(HttpServletRequest request,
                               Authentication authentication) throws Exception {
         User user = (User) authentication.getPrincipal();

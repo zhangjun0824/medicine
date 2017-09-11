@@ -7,7 +7,7 @@
     	select tc.id,tc.name,tc.memo from yj_table_config tc
     </select>
     
-    <select id="queryTable" parameterType="com.medicine.death.entity.table.TableConfig" resultType="com.medicine.death.entity.table.TableConfig">
+    <select id="queryOneById" parameterType="com.medicine.death.entity.table.TableConfig" resultType="com.medicine.death.entity.table.TableConfig">
     	select tc.id,tc.name,tc.memo from yj_table_config tc where id=#{id}
     </select>
     

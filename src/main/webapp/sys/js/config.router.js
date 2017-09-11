@@ -169,6 +169,26 @@ angular.module('app')
             		  }]
             	  }
               })
+              .state('app.info', {
+            	  url: '/info/main',
+            	  templateUrl: 'tpl/info/main.html',
+            	  resolve: {
+            		  deps: ['$ocLazyLoad',
+            		         function( $ocLazyLoad ){
+        						 return $ocLazyLoad.load('js/source/info/main.js');
+            		  }]
+            	  }
+              })
+              .state('app.infoEdit', {
+            	  url: '/info/edit:table',
+            	  templateUrl: 'tpl/info/edit.html',
+            	  resolve: {
+            		  deps: ['$ocLazyLoad',
+            		         function( $ocLazyLoad ){
+            			  return $ocLazyLoad.load('js/source/info/edit.js');
+            		  }]
+            	  }
+              })
       }
     ]
   );

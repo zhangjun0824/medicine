@@ -23,35 +23,44 @@ public class ColumnConfigController extends BaseController {
     private ColumnConfigService service;
 
     @RequestMapping("save")
-    public ModelAndView save(HttpServletRequest request, HttpServletResponse response,ColumnConfig Column){
+    public ModelAndView save(HttpServletRequest request, HttpServletResponse response,ColumnConfig column){
     	ModelAndView result = new ModelAndView();
     	State state=new State("1");
-    	service.save(Column);
+    	service.save(column);
     	result.addObject("state", state);
     	return  result;
     }
     @RequestMapping("update")
-    public ModelAndView update(HttpServletRequest request, HttpServletResponse response,ColumnConfig Column){
+    public ModelAndView update(HttpServletRequest request, HttpServletResponse response,ColumnConfig column){
     	ModelAndView result = new ModelAndView();
     	State state=new State("1");
-    	service.update(Column);
+    	service.update(column);
     	result.addObject("state", state);
     	return  result;
     	
     }
     @RequestMapping("delete")
-    public ModelAndView delete(HttpServletRequest request, HttpServletResponse response,ColumnConfig Column){
+    public ModelAndView delete(HttpServletRequest request, HttpServletResponse response,ColumnConfig column){
     	ModelAndView result = new ModelAndView();
     	State state=new State("1");
-    	service.delete(Column);
+    	service.delete(column);
     	result.addObject("state", state);
     	return  result;
     }
     @RequestMapping("queryList")
-    public ModelAndView queryList(HttpServletRequest request, HttpServletResponse response,ColumnConfig Column){
+    public ModelAndView queryList(HttpServletRequest request, HttpServletResponse response,ColumnConfig column){
     	ModelAndView result = new ModelAndView();
     	State state=new State("1");
-    	List<ColumnConfig> list=service.queryList(Column);
+    	List<ColumnConfig> list=service.queryList(column);
+    	result.addObject("columnList", list);
+    	result.addObject("state", state);
+    	return  result;
+    }
+    @RequestMapping("queryListByIds")
+    public ModelAndView queryListByIds(HttpServletRequest request, HttpServletResponse response,String columnIds){
+    	ModelAndView result = new ModelAndView();
+    	State state=new State("1");
+    	List<ColumnConfig> list=service.queryListByIds(columnIds);
     	result.addObject("columnList", list);
     	result.addObject("state", state);
     	return  result;

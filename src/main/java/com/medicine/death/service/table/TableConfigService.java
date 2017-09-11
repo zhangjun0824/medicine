@@ -14,7 +14,7 @@ import com.medicine.death.vo.SqlVo;
 import com.medicine.framework.base.BaseService;
 
 /**
- * 用户service
+ * 表service
  *
  */
 @Service()
@@ -55,7 +55,7 @@ public class TableConfigService extends BaseService {
 
 	public void update(String tableStr) throws Exception {
 		TableConfig table=objectMapper.readValue(tableStr, TableConfig.class);
-		TableConfig oldTable=mapper.queryTable(table);
+		TableConfig oldTable=mapper.queryOneById(table);
 		mapper.update(table);
 		List<ColumnConfig> columnList=table.getColumnList();
 		String sql="";
@@ -101,13 +101,17 @@ public class TableConfigService extends BaseService {
 	public void delete(String tableId) {
 		TableConfig tableNew=new TableConfig();
 		tableNew.setId(tableId);
-		TableConfig table=mapper.queryTable(tableNew);
+		TableConfig table=mapper.queryOneById(tableNew);
 		String sql="DROP TABLE "+table.getName();
 		SqlVo sqlVo=new SqlVo();
 		sqlVo.setSql(sql);
 		mapper.execute(sqlVo);
 		columnMapper.deleteByTableId(table.getId());
 		mapper.delete(table);
+	}
+
+	public TableConfig queryOneById(TableConfig table) {
+		return mapper.queryOneById(table);
 	}
     
 

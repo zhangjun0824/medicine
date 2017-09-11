@@ -1,0 +1,57 @@
+<div class="wrapper-sm"></div>
+<div class="col-sm-12" ng-controller="InfoMainCtrl">
+	<toaster-container
+		toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+	<div class="panel panel-default lter b-b wrapper-md ">
+		<h3 class="m-n font-thin h3">信息维护</h3>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row wrapper">
+				<div class="col-sm-3" >
+					<span>信息表:</span>
+					<select ui-jq="chosen" style="width: 200px;" id="tableChosen" ng-model="tableId" ng-change="tableChange()">
+						<option value=""></option>
+						<option ng-repeat="table in tableList" value="{{table.id}}">{{table.memo}}</option>
+					</select>
+				</div>
+				<div class="col-sm-3" >
+					<span>信息表字段:</span>
+					<select ui-jq="chosen" class="w-md" id="columnChosen" ng-model="columnIds" ng-change="columnChange()" multiple>
+						<option value=""></option>
+					</select>
+				</div>
+				<div class="col-sm-3">
+					<div class="input-group">
+						<input type="text" class="input-sm form-control" placeholder="Search" ng-model="searchVal" ng-keyup="search($event)"> 
+						<span class="input-group-btn">
+							<button class="btn btn-sm btn-default" type="button" ng-click="queryInfo()">Go!</button>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-3"></div>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr id="tr">
+							<th class="col-3" ng-repeat="column in columns">{{column.memo}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="infoArr in infoList"> 
+							<td title="{{info.name}}" ng-repeat="info in infoArr">{{info.name}}</td>
+							<td>
+								<button class="btn btn-rounded btn-sm btn-icon btn-default" title="编辑" ng-click="editInfo({{infoArr}})"><i class="glyphicon glyphicon-edit"></i></button>
+								<button class="btn btn-rounded btn-sm btn-icon btn-default" title="删除" ng-click="delUser({{user}})"><i class="glyphicon glyphicon-trash"></i></button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="panel-footer">
+				<tm-pagination conf="paginationConf"></tm-pagination>
+			</div>
+		</div>
+	</div>
+</div>

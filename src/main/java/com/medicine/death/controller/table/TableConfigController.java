@@ -34,7 +34,7 @@ public class TableConfigController extends BaseController {
     public ModelAndView update(HttpServletRequest request, HttpServletResponse response,String tableStr) throws Exception{
     	ModelAndView result = new ModelAndView();
     	State state=new State("1");
-    	service.update(tableStr);
+		service.update(tableStr);
     	result.addObject("state", state);
     	return  result;
     }
@@ -43,6 +43,15 @@ public class TableConfigController extends BaseController {
     	ModelAndView result = new ModelAndView();
     	State state=new State("1");
     	service.delete(tableId);
+    	result.addObject("state", state);
+    	return  result;
+    }
+    @RequestMapping("queryOneById")
+    public ModelAndView queryOneById(HttpServletRequest request, HttpServletResponse response,TableConfig table){
+    	ModelAndView result = new ModelAndView();
+    	State state=new State("1");
+    	TableConfig tc=service.queryOneById(table);
+    	result.addObject("table", tc);
     	result.addObject("state", state);
     	return  result;
     }

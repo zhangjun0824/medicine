@@ -27,6 +27,9 @@ app.controller('TableConfigCtrl', ['$scope', '$http', '$timeout', 'toaster','ngD
 			success:function(data){
 				toaster.pop("success","提示","提交成功.");
 				$scope.queryList();
+			},
+			error:function(data){
+				toaster.pop("error","错误","提交失败,请联系管理员.");
 			}
 		});
 	}

@@ -6,12 +6,12 @@ import com.medicine.death.entity.table.TableConfig;
 import com.medicine.death.vo.SqlVo;
 
 /**
- * 用户
+ * 表
  *
  */
 public interface TableConfigMapper {
 
-	TableConfig queryTable(TableConfig table);
+	TableConfig queryOneById(TableConfig table);
 
 	List<TableConfig> queryList(TableConfig table);
 

@@ -13,7 +13,7 @@ import com.medicine.death.vo.SqlVo;
 import com.medicine.framework.base.BaseService;
 
 /**
- * 用户service
+ * 列service
  *
  */
 @Service()
@@ -40,12 +40,16 @@ public class ColumnConfigService extends BaseService {
 	public void delete(ColumnConfig column) {
 		TableConfig tableNew=new TableConfig();
 		tableNew.setId(column.getTableId());
-		TableConfig table=tablemapper.queryTable(tableNew);
+		TableConfig table=tablemapper.queryOneById(tableNew);
 		String sql="ALTER TABLE "+table.getName()+" DROP("+column.getName()+")";
 		SqlVo sqlVo=new SqlVo();
 		sqlVo.setSql(sql);
 		tablemapper.execute(sqlVo);
 		mapper.delete(column);
+	}
+
+	public List<ColumnConfig> queryListByIds(String columnIds) {
+		return mapper.queryListByIds(columnIds.split(","));
 	}
     
 
