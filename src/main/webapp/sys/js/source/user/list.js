@@ -46,6 +46,35 @@ app.controller('UserListCtrl', ['$scope', '$http', '$state', 'toaster', 'ngDialo
 	    	}  
 		 });
 	}
+	$scope.resetUser=function(obj){
+		var user = {
+				id: obj.id,
+				username: obj.username,
+				password : obj.password
+			}
+		ngDialog.open({  
+			template: 'tpl/del.html',  
+			className: 'ngdialog-theme-default',  
+			scope: $scope,  
+			controller: function ($scope) {  
+				$scope.confirm = function () {
+					$.ajax({
+						url : webRoot + '/user/resetPwd.json',
+						type : 'post',
+						data:user,
+						async : false,
+						success:function(data){
+							toaster.pop("success","提示","重置成功. 密码与用户名相同.");
+							$scope.closeThisDialog();
+						}
+					});
+				};  
+				$scope.cancel = function () {  
+					$scope.closeThisDialog();
+				};  
+			}  
+		});
+	}
 	$scope.roleUser=function(user){
 		$state.go("app.userRole", {
 			user : angular.toJson(user)

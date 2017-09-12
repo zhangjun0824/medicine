@@ -124,6 +124,7 @@ public class UserService extends BaseService {
 		user.setCreateDate(new Date());
 		user.setEditUserId(getUserId());
 		user.setEditDate(new Date());
+		user.setPassword(SysUtil.encodePassword(user.getPassword(), user.getUsername()));
 		userMapper.save(user);
 	}
 
