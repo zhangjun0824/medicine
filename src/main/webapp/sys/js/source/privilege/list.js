@@ -65,7 +65,7 @@ app.controller('PrivilegeListCtrl', ['$scope', '$http', '$timeout', 'toaster','n
                     $scope.closeThisDialog();
                 };  
             }  
-      });  
+       });  
     };  
     $scope.delPrivile = function () {
         var privilege = tree.get_selected_branch();

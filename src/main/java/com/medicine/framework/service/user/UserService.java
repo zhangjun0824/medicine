@@ -102,12 +102,8 @@ public class UserService extends BaseService {
         return list;
     }
 
-    public List<User> getAllUsers() {
-        return userMapper.getAllUsers();
-    }
-
     public void updatePwd(User user) {
-    	user.setPassword(SysUtil.encodePassword(user.getPassword(), user.getUsername()));
+    	user.setPassword(SysUtil.encodePassword(user.getPassword(), ""));
         userMapper.updatePwd(user);
     }
 
@@ -124,7 +120,7 @@ public class UserService extends BaseService {
 		user.setCreateDate(new Date());
 		user.setEditUserId(getUserId());
 		user.setEditDate(new Date());
-		user.setPassword(SysUtil.encodePassword(user.getPassword(), user.getUsername()));
+		user.setPassword(SysUtil.encodePassword(user.getPassword(), ""));
 		userMapper.save(user);
 	}
 
@@ -146,13 +142,13 @@ public class UserService extends BaseService {
 	}
 
 	public void resetPwd(User user) {
-		user.setPassword(SysUtil.encodePassword(user.getUsername(), user.getUsername()));
+		user.setPassword(SysUtil.encodePassword(user.getUsername(), ""));
 		userMapper.resetPwd(user);
 	}
 
 	public void checkPwd(User user,State state) {
 		User u=userMapper.getUserById(user.getId());
-		String oldPwd=SysUtil.encodePassword(user.getPassword(), user.getUsername());
+		String oldPwd=SysUtil.encodePassword(user.getPassword(), "");
 		if(!oldPwd.equals(u.getPassword())){
 			state.setCode("0");
 			state.setMsg("旧密码输入错误.");

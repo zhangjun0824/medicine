@@ -43,7 +43,6 @@ public class MyUserDetailsService implements UserDetailsService {
             user.setAuthorities(auths);
             user.setPassword(pwd);
         }
-
         return user;
     }
 

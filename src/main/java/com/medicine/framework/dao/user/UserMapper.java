@@ -27,8 +27,6 @@ public interface UserMapper {
 
 	List<String> getNoAuthResource();
 
-	List<User> getAllUsers();
-
 	void updatePwd(User user);
 
 	User getUserByUserName(String username);

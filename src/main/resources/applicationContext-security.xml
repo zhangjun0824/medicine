@@ -121,7 +121,6 @@
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="userDetailsManager">
             <password-encoder hash="md5">
-                <salt-source user-property="username"/>
             </password-encoder>
         </authentication-provider>
     </authentication-manager>
